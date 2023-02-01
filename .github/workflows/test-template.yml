@@ -20,6 +20,10 @@ jobs:
       - uses: cargo-generate/cargo-generate-action@v0.17.5
         with:
           name: ${{ env.PROJECT_NAME }}
+        env:
+          CARGO_GENERATE_VALUE_GITHUB_ORG: dbanty
+          CARGO_GENERATE_VALUE_GITHUB_REPO: test
+          CARGO_GENERATE_VALUE_DESCRIPTION: test
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable

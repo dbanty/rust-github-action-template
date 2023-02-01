@@ -1,0 +1,13 @@
+[template]
+ignore = [".github/workflows/test-template.yml", ".idea"]
+
+[hooks]
+pre = ["pre-script.rhai"]
+
+[placeholders.github_org]
+type = "string"
+prompt = "GitHub Organization (e.g., user name) for this action?"
+
+[placeholders.description]
+type = "string"
+prompt = "What will this action do?"

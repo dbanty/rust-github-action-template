@@ -1,0 +1,32 @@
+name: Test consuming this action
+on:
+  pull_request:
+    branches: [main]
+  workflow_run:
+    workflows: ["Docker Publish"]
+    branches: [main]
+    types:
+      - completed
+
+jobs:
+  test_success:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+
+  test_error:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: test
+        continue-on-error: true
+        uses: ./
+        with:
+          error: "This is an error"
+      - name: Verify failure
+        if: steps.test.outputs.error != ''
+        run: echo "Failed as expected"
+      - name: Unexpected success
+        if: steps.test.outputs.error == ''
+        run: echo "Succeeded unexpectedly" && exit 1

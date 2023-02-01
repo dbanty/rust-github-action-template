@@ -1,0 +1,17 @@
+name: Unit tests, linting, and formatting
+on: [push]
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update Rust
+        run: |
+          rustup override set stable
+          rustup update stable
+      - name: Run tests
+        run: cargo test
+      - name: Lint
+        run: cargo clippy
+      - name: Check formatting
+        run: cargo fmt --check

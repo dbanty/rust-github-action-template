@@ -1,0 +1,32 @@
+name: Build Template
+on:
+  # https://docs.github.com/en/actions/reference/events-that-trigger-workflows#workflow_dispatch
+  workflow_dispatch:
+  schedule:
+    - cron: '0 18 * * 5'
+  push:
+    branches: [ '*' ]
+    paths-ignore:
+      - "**/docs/**"
+      - "**.md"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: mytemplate
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cargo-generate/cargo-generate-action@v0.17
+        with:
+          name: ${{ env.PROJECT_NAME }}
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      # we need to move the generated project to a temp folder, away from the template project
+      # otherwise `cargo` runs would fail
+      # see https://github.com/rust-lang/cargo/issues/9922
+      - run: |
+          mv $PROJECT_NAME ${{ runner.temp }}/
+          cd ${{ runner.temp }}/$PROJECT_NAME
+          cargo check

@@ -1,14 +1,11 @@
 name: Build Template
 on:
-  # https://docs.github.com/en/actions/reference/events-that-trigger-workflows#workflow_dispatch
   workflow_dispatch:
-  schedule:
-    - cron: '0 18 * * 5'
+  pull_request:
+  merge_group:
   push:
-    branches: [ '*' ]
-    paths-ignore:
-      - "**/docs/**"
-      - "**.md"
+    branches:
+      - main
 
 jobs:
   build:

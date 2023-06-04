@@ -11,6 +11,6 @@ outputs:
     description: 'The description of any error that occurred'
 runs:
   using: 'docker'
-  image: 'ghcr.io/{{github_org}}/{{github_repo}}:v1'
+  image: 'docker://ghcr.io/{{github_org}}/{{github_repo}}:v1'
   args:
     - {% raw %}${{ inputs.error }}{% endraw %}

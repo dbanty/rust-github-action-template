@@ -1,13 +1,10 @@
 name: Test consuming this action
 on:
-  pull_request:
-    branches: [v1]
+  release:
+    types: [released]
   workflow_run:
-    workflows: ["Docker Publish"]
-    branches: [v1]
-    types:
-      - completed
-
+    workflows: ["Release"]
+    types: ["completed"]
 jobs:
   test_success:
     runs-on: ubuntu-latest

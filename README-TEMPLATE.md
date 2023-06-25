@@ -7,4 +7,5 @@
 - [ ] Update this README with the details of this action
 - [ ] Update inputs/outputs in `action.yaml`
 - [ ] Implement the action's logic in `src/main.rs`
-- [ ] Rename the default Git branch to `v1` (instead of `main` or `master`. This helps with potential future breaking changes. **PROVIDED ACTIONS WILL NOT WORK UNTIL YOU DO THIS** 
+- [ ] Trigger a release in GitHub Actions
+- [ ] Edit the triggered release to set release notes and publish the action to GitHub Marketplace

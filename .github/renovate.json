@@ -1,38 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:base",
+    ":semanticCommitTypeAll(chore)",
+    "github>Turbo87/renovate-config//rust/updateToolchain"
   ],
   "packageRules": [
     {
-      "description": "Automerge non-major updates",
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
-    }
-  ],
-  "regexManagers": [
-    {
-      "fileMatch": [
-        "\\.github/workflows/docker-publish\\.yml\\.liquid"
-      ],
-      "matchStrings": [
-        "cosign-release: '(?<currentValue>v\\d+\\.\\d+\\.\\d+)'"
-      ],
-      "depNameTemplate": "sigstore/cosign",
-      "datasourceTemplate": "github-releases"
-    },
-    {
-      "fileMatch": [
-        "\\.github/workflows/docker-publish\\.yml\\.liquid"
-      ],
-      "matchStrings": [
-        "uses: sigstore\\/cosign-installer@(?<currentValue>v\\d+\\.\\d+\\.\\d+)"
-      ],
-      "depNameTemplate": "sigstore/cosign-installer",
-      "datasourceTemplate": "action"
     }
   ]
 }

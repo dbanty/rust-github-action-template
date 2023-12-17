@@ -51,8 +51,9 @@ jobs:
         run: tar -czf ${{ runner.os }}.tgz ${{ runner.os }}
 
       - name: Store Archive
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
+          name: ${{runner.os}}
           path: ${{ runner.os }}.tgz
 
   create-release:
@@ -63,11 +64,9 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v3
-        with:
-          name: artifact
+      - uses: actions/download-artifact@v4
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "*.tgz"
+          artifacts: "Linux/Linux.tgz,macOS/macOS.tgz,Windows/Windows.tgz"
           tag: v${{ github.event.inputs.version }}{% endraw %}
